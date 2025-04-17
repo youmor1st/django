@@ -15,11 +15,11 @@ class ResumeUploadView(APIView):
     parser_classes = [MultiPartParser]
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, parse_resume_task=None, *args, **kwargs):
+    def post(self, request, parse_resume_task=None, serializer=None, *args, **kwargs):
         serializer = ResumeUploadSerializer(data=request.data)
         if serializer.is_valid():
             resume_file = request.FILES['file']
-            resume = serializer.save(user=request.user)git init
+            resume = serializer.save(user=request.user)
             parse_resume_task.delay(resume.id)
 
             # Логирование
