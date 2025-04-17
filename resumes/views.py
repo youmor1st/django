@@ -19,7 +19,7 @@ class ResumeUploadView(APIView):
         serializer = ResumeUploadSerializer(data=request.data)
         if serializer.is_valid():
             resume_file = request.FILES['file']
-            resume = serializer.save(user=request.user)
+            resume = serializer.save(user=request.user)git init
             parse_resume_task.delay(resume.id)
 
             # Логирование
